@@ -1,0 +1,19 @@
+﻿*{
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    padding-top: 50px;
+}
+.borda{
+    
+}
+.botaoCadastro {
+    width: 300px;
+    font-size: 22px;
+    height: 70px;
+}
+.ajusteTamanhoPreco {
+    text-align: end;
+    width: 140px;
+}

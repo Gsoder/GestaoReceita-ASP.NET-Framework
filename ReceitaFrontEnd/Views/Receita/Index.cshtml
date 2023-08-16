@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+@using (Html.BeginForm("Cadastro", "Receita", FormMethod.Post))
+{
+    <form>
+        <div class="container borda d-flex align-items-start" style="margin-bottom:20px">
+            <input class="btn btn-outline-primary botaoCadastro" type="submit" value="Cadastrar nova receita!"/>
+        </div>
+    </form>
+}
+<div class="container borda">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" style="width:850px">Nome da Receita</th>
+                <th scope="col">Valor da Receita</th>
+                <th scope="col" style="text-align:center">Ações</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            <tr>
+                <td>Bolo de Cenoura</td>
+                <td class="ajusteTamanhoPreco">200</td>
+                <td style="text-align:center">
+                    <button type="button" class="btn btn-outline-primary" >Editar</button>
+                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Bolode Banana</td>
+                <td class="ajusteTamanhoPreco">300</td>
+                <td style="text-align:center">
+                    <button type="button" class="btn btn-outline-primary">Editar</button>
+                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                </td>
+            </tr>
+            <tr>
+                <td>Pudim</td>
+                <td class="ajusteTamanhoPreco">100</td>
+                <td style="text-align:center">
+                    <button type="button" class="btn btn-outline-primary">Editar</button>
+                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+
+
