@@ -5,9 +5,7 @@
 body{
     padding-top: 50px;
 }
-.borda{
-    
-}
+
 .botaoCadastro {
     width: 300px;
     font-size: 22px;
@@ -16,4 +14,38 @@ body{
 .ajusteTamanhoPreco {
     text-align: end;
     width: 140px;
+}
+.test{
+
+    right: 500px;
+
+}
+.menu {
+    height: 100px;
+    width: 100px;
+    position: fixed;
+    transition: all 0.5s;
+    right: -20%;
+    float: right;
+    opacity: 1 !important;
+    border-radius: 20px;
+    margin-top: 180px;
+ 
+}
+.active {
+    right: 1%;
+    position: absolute;
+    float: right;
+    overflow: hidden
+}
+
+.bottomhover {
+    color: #fff;
+    background-color: #dc3545;
+    border: #dc3545;
+}
+
+.excluir {
+    margin: 25px;
+    font-weight: bold;
 }

@@ -8,8 +8,29 @@
 @using (Html.BeginForm("Cadastro", "Receita", FormMethod.Post))
 {
     <form>
-        <div class="container borda d-flex align-items-start" style="margin-bottom:20px">
-            <input class="btn btn-outline-primary botaoCadastro" type="submit" value="Cadastrar nova receita!"/>
+        <div style="display: flex;">
+            <div class="container borda d-flex align-items-start borda" style="margin-bottom:20px">
+                <input class="btn btn-outline-primary botaoCadastro" type="submit" value="Cadastrar nova receita!" />
+            </div>
+            <button type="button" class="btn btn-outline-danger menu" data-bs-toggle="modal" data-bs-target="#exampleModal">PERIGO!</button>
+  
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">EXCLUIR?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Tem certeja que deseja excluir a RECEITA? A exclusão da receita sera permanentemente!!!!!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="button" class="btn btn-outline-danger">Deletar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 }
@@ -27,24 +48,24 @@
                 <td>Bolo de Cenoura</td>
                 <td class="ajusteTamanhoPreco">200</td>
                 <td style="text-align:center">
-                    <button type="button" class="btn btn-outline-primary" >Editar</button>
-                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                    <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1px;">Editar</button>
+                    <button type="button" class="btn btn-outline-danger test">Deletar</button>
                 </td>
             </tr>
             <tr>
                 <td>Bolode Banana</td>
                 <td class="ajusteTamanhoPreco">300</td>
                 <td style="text-align:center">
-                    <button type="button" class="btn btn-outline-primary">Editar</button>
-                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                    <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1px;">Editar</button>
+                    <button type="button" class="btn btn-outline-danger test">Deletar</button>
                 </td>
             </tr>
             <tr>
                 <td>Pudim</td>
                 <td class="ajusteTamanhoPreco">100</td>
                 <td style="text-align:center">
-                    <button type="button" class="btn btn-outline-primary">Editar</button>
-                    <button type="button" class="btn btn-outline-danger">Deletar</button>
+                    <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1px;">Editar</button>
+                    <button type="button" class="btn btn-outline-danger test">Deletar</button>
                 </td>
             </tr>
         </tbody>
