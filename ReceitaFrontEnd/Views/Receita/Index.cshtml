@@ -1,0 +1,102 @@
+﻿@model List<ReceitaFrontEnd.Models.ReceitaViewModel>
+@{
+    ViewBag.Title = "Index";
+}
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+<script src="https://www.google.com/recaptcha/enterprise.js?render=6LdD-78nAAAAAFsoghhAlZeIJaJuapMXSopJVt_K"></script>
+
+    
+<div class="container">
+    <div class="container d-flex align-items-start " style="margin-bottom:20px; margin: auto;">
+        @using (Html.BeginForm("Cadastro", "Receita", FormMethod.Post))
+        {
+            <form class="align-content-center">
+                <input class="btn btn-outline-primary botaoCadastro" type="submit" value="Cadastrar nova receita!" style="width: 350px" />
+            </form>
+        }
+
+        <button type="button" class="btn btn-outline-danger botaoCadastro" data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="margin-left: 10px; width: 280px" id="excluirReceita">
+            Excluir todas as receitas!
+        </button>
+    </div>
+    @using (Html.BeginForm("Index", "Receita", FormMethod.Post))
+    {
+        <form>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">Excluir todas as receitas?</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div style="margin: auto; text-align: center">Digite: <br /><span id="testSocial"></span><br /></div>
+                        </div>
+                        <input class="form-control bow" type="text" placeholder="Insira o codigo aqui" aria-label="default input example">
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-danger" id="teste">Enviar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        }
+    <button type="button" class="btn btn-outline-danger menu" data-bs-toggle="modal" data-bs-target="#exampleModal">PERIGO!</button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">EXCLUIR?</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Tem certeja que deseja excluir a RECEITA? A exclusão da receita sera permanentemente!!!!!
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                    <button type="button" class="btn btn-outline-danger" id="EXCLUIR" data-bs-dismiss="modal">Deletar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container sla">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col" style="width:30px">ID</th>
+                <th scope="col" style="width:850px">Nome da Receita</th>
+                <th scope="col">Valor da Receita</th>
+                <th scope="col" style="text-align:center">Ações</th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var receita in Model)
+            {
+                <tr>
+                    <td>@receita.Id</td>
+                    <td>@receita.Receita</td>
+                    <td class="ajusteTamanhoPreco">@receita.preco</td>
+                    <td style="text-align:center">
+                        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1px;">Editar</button>
+                        <button type="button" class="btn btn-outline-danger test">Deletar</button>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+<script>
+
+
+</script>
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+
+
+

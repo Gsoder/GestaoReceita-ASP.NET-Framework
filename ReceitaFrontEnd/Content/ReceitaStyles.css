@@ -1,0 +1,63 @@
+﻿*{
+    margin: 0%;
+    padding: 0%;
+}
+body{
+    padding-top: 50px;
+}
+
+.botaoCadastro {
+    width: 300px;
+    font-size: 22px;
+    height: 70px;
+}
+.ajusteTamanhoPreco {
+    text-align: end;
+    width: 140px;
+}
+.test{
+
+    right: 500px;
+
+}
+.menu {
+    height: 100px;
+    width: 100px;
+    position: fixed !important;
+    transition: all 0.5s;
+    right: -20%;
+    float: right;
+    opacity: 1 !important;
+    border-radius: 10px;
+    margin-top: 140px;
+    border: 2px solid black !important;
+ 
+}
+.active {
+    right: 1%;
+    position: fixed !important;
+    float: right;
+    overflow: hidden
+}
+
+.bottomhover {
+    color: #fff;
+    background-color: #dc3545;
+    border: #dc3545;
+}
+
+.excluir {
+    margin: 25px;
+    font-weight: bold;
+}
+.sla {
+    width: 85%;
+    white-space: nowrap;
+}
+.bow{
+
+    width: 80%;
+    margin-bottom: 20px !important;
+    margin: auto;
+
+}
