@@ -23,19 +23,19 @@ body{
 .menu {
     height: 100px;
     width: 100px;
-    position: fixed;
+    position: fixed !important;
     transition: all 0.5s;
     right: -20%;
     float: right;
     opacity: 1 !important;
-    border-radius: 20px;
-    margin-top: 180px;
+    border-radius: 10px;
+    margin-top: 140px;
     border: 2px solid black !important;
  
 }
 .active {
     right: 1%;
-    position: absolute;
+    position: fixed !important;
     float: right;
     overflow: hidden
 }
@@ -49,4 +49,15 @@ body{
 .excluir {
     margin: 25px;
     font-weight: bold;
+}
+.sla {
+    width: 85%;
+    white-space: nowrap;
+}
+.bow{
+
+    width: 80%;
+    margin-bottom: 20px !important;
+    margin: auto;
+
 }
