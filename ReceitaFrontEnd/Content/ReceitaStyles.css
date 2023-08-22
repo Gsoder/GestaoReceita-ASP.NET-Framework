@@ -61,3 +61,18 @@ body{
     margin: auto;
 
 }
+#meuAlerta {
+    position: fixed;
+    top: 20px; 
+    right: 20px; 
+    z-index: 1050;
+    width: 300px; 
+    opacity: 0.9;
+    border-radius: 4px; 
+    padding: 10px;
+}
+.aaaa{
+
+    display: none;
+
+}
