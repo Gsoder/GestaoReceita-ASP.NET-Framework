@@ -6,9 +6,11 @@
 @Scripts.Render("~/bundles/modernizr")
 <script src="https://www.google.com/recaptcha/enterprise.js?render=6LdD-78nAAAAAFsoghhAlZeIJaJuapMXSopJVt_K"></script>
 
-<script>
-    
-</script>
+<noscript>
+    <p>Por favor, habilite o JavaScript para ter a melhor experiência.</p>
+</noscript>
+
+  
 @using (Html.BeginForm("Cadastro", "Receita", FormMethod.Post))
 {
     <form class="align-content-center">
@@ -19,7 +21,7 @@
                     Excluir todas as receitas!
                 </button>
             </div>
-
+            <div id="meuAlerta" class="alert" role="alert" style="z-index: 2000;"></div>
             <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -27,13 +29,14 @@
                             <h1 class="modal-title fs-5" id="staticBackdropLabel">Excluir todas as receitas?</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
+
                         <div class="modal-body">
                             <div style="margin: auto; text-align: center">Digite: <br /><span id="testSocial"></span><br /></div>
                         </div>
-                        <input class="form-control bow" type="text" placeholder="Insira o codigo aqui" aria-label="default input example">
+                        <input class="form-control bow" type="text" placeholder="Insira o codigo aqui" aria-label="default input example" id="verificacao">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Understood</button>
+                            <button type="button" class="btn btn-outline-danger" id="EXCLUIRTUDO">Deletar</button>
                         </div>
                     </div>
                 </div>
