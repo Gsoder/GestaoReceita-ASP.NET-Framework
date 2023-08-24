@@ -63,7 +63,7 @@ body{
 }
 #meuAlerta {
     position: fixed;
-    top: 20px; 
+    top: 70px; 
     right: 20px; 
     z-index: 1050;
     width: 300px; 
@@ -74,5 +74,26 @@ body{
 .aaaa{
 
     display: none;
+
+}
+
+
+
+.sla12{
+
+    align-content: center;
+    width: 400px;
+    margin: auto;
+
+}
+
+.sla12 img{
+    width: 100%;
+}
+
+.navbar{
+
+    margin-top: -50px;
+    margin-bottom: 10px;
 
 }

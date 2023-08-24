@@ -63,32 +63,53 @@
         </div>
     </form>
 }
-<div class="container sla">
-    <table class="table">
-        <thead>
-            <tr>
-                <th scope="col" style="width:30px">ID</th>
-                <th scope="col" style="width:850px">Nome da Receita</th>
-                <th scope="col">Valor da Receita</th>
-                <th scope="col" style="text-align:center">Ações</th>
-            </tr>
-        </thead>
-        <tbody class="table-group-divider">
-            @foreach (var receita in Model)
-            {
+<div class="container sla" id="vazio">
+    @if (Model.Any())
+    {
+       
+        <table class="table" id="tables">
+            <thead>
                 <tr>
-                    <td>@receita.Id</td>
-                    <td>@receita.Receita</td>
-                    <td class="ajusteTamanhoPreco">@receita.preco</td>
-                    <td style="text-align:center">
-                        <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1px;">Editar</button>
-                        <button type="button" class="btn btn-outline-danger test">Deletar</button>
-                    </td>
+                    <th scope="col" style="width:30px">ID</th>
+                    <th scope="col" style="width:850px">Nome da Receita</th>
+                    <th scope="col">Valor da Receita</th>
+                    <th scope="col" style="text-align:center">Ações</th>
                 </tr>
-            }
+            </thead>
+            <tbody class="table-group-divider" >
+                @foreach (var receita in Model)
+                {
+                    <tr>
+                        <td>@receita.Id</td>
+                        <td>@receita.Receita</td>
+                        <td class="ajusteTamanhoPreco">@receita.preco</td>
+                        <td style="text-align:center">
+                            <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1px;">Editar</button>
+                            <button type="button" class="btn btn-outline-danger test">Deletar</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+    <script>
+        
+        var myButton = document.getElementById("excluirReceita");
+        myButton.disabled = true;
 
-        </tbody>
-    </table>
+        
+        myButton.style.backgroundColor = "#ccc"; 
+        myButton.style.color = "#666";          
+        myButton.style.cursor = "not-allowed";
+        myButton.style.border = "none";
+    </script>
+    <div class="sla12">
+        <img src="~/Imagens/OIG-removebg-preview.png"/>
+    </div>
+        <p style="text-align: center">Não há receitas para exibir.</p>
+    }
 </div>
 <script>
 
