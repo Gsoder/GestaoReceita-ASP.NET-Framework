@@ -32,8 +32,11 @@
 
                         <div class="modal-body">
                             <div style="margin: auto; text-align: center">Digite: <br /><span id="testSocial"></span><br /></div>
+                            <div class="loader-container">
+                                <input class="form-control bow" type="text" placeholder="Insira o codigo aqui" aria-label="default input example" id="verificacao">
+                                <div class="loader"></div>
+                            </div>
                         </div>
-                        <input class="form-control bow" type="text" placeholder="Insira o codigo aqui" aria-label="default input example" id="verificacao">
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-outline-danger" id="EXCLUIRTUDO">Deletar</button>
@@ -63,7 +66,7 @@
         </div>
     </form>
 }
-<div class="container sla" id="vazio">
+<div class="container sla" id="vazio"style=" overflow: auto; height: 550px;">
     @if (Model.Any())
     {
        

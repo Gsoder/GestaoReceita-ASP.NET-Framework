@@ -4,11 +4,17 @@
     var receitas = [];
     var randomString;
 
-    /*var inputElement = document.getElementById("verificacao");
+
+    var url = "/Receita/receitasBuscar";
+    $.get(url, null, function (data) {
+        console.log(data)
+    });
+
+    var inputElement = document.getElementById("verificacao");
     inputElement.addEventListener("paste", function (event) {
         event.preventDefault();
         alerte("Ação de colagem foi bloqueada.", "warning");
-    });*/
+    });
 
     $(".test").on("click", function (e) {
         $(this).toggleClass('bottomhover');
@@ -98,8 +104,11 @@
                             closeModal();
                             document.getElementById("tables").remove();
 
+                            const elemento = document.getElementById('vazio');
+
+
                             var container = document.querySelector('#vazio');
-                            
+
 
                             var novoHTML = `
                             <div class="sla12">
@@ -118,6 +127,9 @@
                             myButton.style.color = "#666";
                             myButton.style.cursor = "not-allowed";
                             myButton.style.border = "none";
+
+                            elemento.style.removeProperty('overflow');
+                            elemento.style.removeProperty('height');
                         }
                     });
                 break;
@@ -211,3 +223,22 @@ function closeModal() {
     document.body.style.overflow = 'auto';
     modal.hide();
 }
+
+function iniciarContador() {
+    let contador = 30;
+    const tempoDiv = document.getElementById("tempo");
+
+    intervalId = setInterval(function () {
+        tempoDiv.textContent = contador;
+        contador--;
+
+        if (contador < 0) {
+            clearInterval(intervalId);
+            tempoDiv.textContent = "Tempo acabou!";
+        }
+    }, 1000);
+}
+
+/*function pararContador() {
+    clearInterval(intervalId);
+}*/

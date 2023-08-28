@@ -1,7 +1,10 @@
-﻿using ReceitaFrontEnd.Models;
+﻿using Newtonsoft.Json;
+using ReceitaFrontEnd.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -106,6 +109,33 @@ namespace ReceitaFrontEnd.Controllers
 
         }
 
+        public JsonResult receitasBuscar(string cidadeDescricao)
+        {
+            using (var client = new HttpClient())
+            {
+                var formContentString = new StringContent(JsonConvert.SerializeObject(new { descricaoCidade = cidadeDescricao, IdEstado = 1 }), Encoding.UTF8, "application/json");
+
+                var response = client.DeleteAsync("http://gestaoreceitaapi.somee.com/api/Receita");
+
+                response.Wait();
+
+                if (response.Result.IsSuccessStatusCode)
+                {
+                    var stringResult = response.Result.Content.ReadAsStringAsync();
+
+                    var objectJson = JsonConvert.DeserializeObject<ReceitaViewModel>(stringResult.Result);
+                }
+                else
+                {
+                    //Erro de requisicao
+                    var content = response.Result.Content.ReadAsStringAsync();
+
+                    var ret = JsonConvert.DeserializeObject<ValidationResult>(content.Result);
+                }
+            }
+
+            return Json(new { });
+        }
 
         public string GenerateToken()
         {
