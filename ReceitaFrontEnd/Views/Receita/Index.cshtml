@@ -1,4 +1,4 @@
-﻿@model List<ReceitaFrontEnd.Models.ReceitaViewModel>
+﻿@model List<ReceitaFrontEnd.Models.DadosReceitaViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -84,8 +84,8 @@
                 {
                     <tr>
                         <td>@receita.Id</td>
-                        <td>@receita.Receita</td>
-                        <td class="ajusteTamanhoPreco">@receita.preco</td>
+                        <td>@receita.nomeReceita</td>
+                        <td class="ajusteTamanhoPreco">@receita.valorTotalReceita</td>
                         <td style="text-align:center">
                             <button type="button" class="btn btn-outline-primary" style="margin-bottom: 1px;">Editar</button>
                             <button type="button" class="btn btn-outline-danger test">Deletar</button>

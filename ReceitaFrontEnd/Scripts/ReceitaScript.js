@@ -10,11 +10,11 @@
         console.log(data)
     });
 
-    var inputElement = document.getElementById("verificacao");
+/*    var inputElement = document.getElementById("verificacao");
     inputElement.addEventListener("paste", function (event) {
         event.preventDefault();
         alerte("Ação de colagem foi bloqueada.", "warning");
-    });
+    });*/
 
     $(".test").on("click", function (e) {
         $(this).toggleClass('bottomhover');
@@ -83,24 +83,30 @@
     $("#EXCLUIRTUDO").on("click", function (e) {
         var url = "/Receita/submeterCodigo";
         var digitado = $("#verificacao").val();
+
         console.log(sessionStorage.getItem("codigoValidacao"))
         console.log(digitado)
+
+        var listaId = pegarValoresDaColuna(0);
+        console.log(listaId)
 
         $.post(url, { digitado: digitado }, function (data) {
             switch (data) {
                 case "Codigo correto":
                     var url = "/Receita/excluirTudo";
-                    $.get(url, null, function (data) {
+                    $.post(url, { listaId: listaId }, function (data) {
 
                         if (data == "False") {
 
-                            alerte("Lista vazia", "warning");
+                            alerte("Erro ao limpar a lista", "warning");
                             console.log("Lista vazia");
 
                         }
                         else {
+
+      
+
                             alerte("Receitas apagadas", "sucess");
-                            console.log("Lista apagada");
                             closeModal();
                             document.getElementById("tables").remove();
 
@@ -242,3 +248,14 @@ function iniciarContador() {
 /*function pararContador() {
     clearInterval(intervalId);
 }*/
+function pegarValoresDaColuna(numeroColuna) {
+    var tabela = document.getElementById("tables");
+    var valoresColuna = [];
+
+    for (var i = 1; i < tabela.rows.length; i++) {
+        var celula = tabela.rows[i].cells[numeroColuna];
+        valoresColuna.push(celula.innerHTML);
+    }
+
+    return valoresColuna;
+}

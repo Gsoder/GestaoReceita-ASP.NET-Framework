@@ -3,25 +3,29 @@ using ReceitaFrontEnd.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing.Printing;
+using System.EnterpriseServices;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using System.Xml.Linq;
 
 namespace ReceitaFrontEnd.Controllers
 {
     public class ReceitaController : Controller
     { 
         private List<ReceitaViewModel> list = new List<ReceitaViewModel>();
-        private bool sla = true;
         private Random random = new Random();
         // GET: Receita
         public ActionResult Index()
         {
 
-            Session["listaItems"] = new List<ReceitaViewModel>();
+            /*Session["listaItems"] = new List<ReceitaViewModel>();
 
             if (sla)
             {
@@ -35,10 +39,12 @@ namespace ReceitaFrontEnd.Controllers
                 sla = false;
 
                 Session["listaItems"] = list;
-            }
-            
+            }*/
 
-            return View(list);
+            var receitas = receitasBuscar();
+
+            
+            return View(receitas);
         }
 
         /*public ActionResult Index()
@@ -65,25 +71,44 @@ namespace ReceitaFrontEnd.Controllers
             return View(list);
         }*/
 
-        public bool excluirTudo()
+
+
+        public bool excluirTudo(List<int> listaId)
         {
-            var lista = Session["listaItems"] as List<ReceitaViewModel>;
-            if (lista.Count == 0)
+            bool check = true;
+
+            using (var client = new HttpClient())
             {
 
-                return false;
+                foreach (var id in listaId)
+                {
+                    if(check == true) { 
 
+                        var response = client.DeleteAsync("http://gestaoreceitaapi.somee.com/api/Receita/" + id);
+
+                        response.Wait();
+
+                        if (response.Result.IsSuccessStatusCode)
+                        {
+                            check = true;
+
+                        }
+                        else
+                        {
+
+                            var content = response.Result.Content.ReadAsStringAsync();
+
+                            var ret = JsonConvert.DeserializeObject<List<ValidationResult>>(content.Result);
+
+                            check = false;
+                        }
+                    }
+                    
+                }
+                return check;
             }
-            else
-            {
-                lista.Clear();
 
-                Session["listaItems"] = lista;
 
-                return true;
-            }
-
-            
         }
 
         [HttpPost]
@@ -109,13 +134,15 @@ namespace ReceitaFrontEnd.Controllers
 
         }
 
-        public JsonResult receitasBuscar(string cidadeDescricao)
+        public List<DadosReceitaViewModel> receitasBuscar()
         {
+            var listaReceita = new List<DadosReceitaViewModel>();
+
             using (var client = new HttpClient())
             {
-                var formContentString = new StringContent(JsonConvert.SerializeObject(new { descricaoCidade = cidadeDescricao, IdEstado = 1 }), Encoding.UTF8, "application/json");
+                
 
-                var response = client.DeleteAsync("http://gestaoreceitaapi.somee.com/api/Receita");
+                var response = client.GetAsync("http://gestaoreceitaapi.somee.com/api/Receita");
 
                 response.Wait();
 
@@ -123,18 +150,37 @@ namespace ReceitaFrontEnd.Controllers
                 {
                     var stringResult = response.Result.Content.ReadAsStringAsync();
 
-                    var objectJson = JsonConvert.DeserializeObject<ReceitaViewModel>(stringResult.Result);
+
+                    var objectJson = JsonConvert.DeserializeObject<List<ReceitaViewModel>>(stringResult.Result);
+
+
+                    foreach (var item in objectJson)
+                    {
+                        listaReceita.Add(new DadosReceitaViewModel()
+                        {
+                            Id = item.Id,
+                            valorTotalReceita = item.valorTotalReceita,
+                            nomeReceita = item.nomeReceita,
+                        });
+
+                        
+                    }
+
                 }
                 else
                 {
-                    //Erro de requisicao
+                    
                     var content = response.Result.Content.ReadAsStringAsync();
 
-                    var ret = JsonConvert.DeserializeObject<ValidationResult>(content.Result);
-                }
-            }
+                    var ret = JsonConvert.DeserializeObject<List<ValidationResult>>(content.Result);
 
-            return Json(new { });
+              
+                
+                }
+                return listaReceita;
+            }
+            
+
         }
 
         public string GenerateToken()
