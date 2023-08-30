@@ -183,6 +183,46 @@ namespace ReceitaFrontEnd.Controllers
 
         }
 
+        public bool Excluir(List<int> listaId)
+        {
+            bool check = true;
+
+            using (var client = new HttpClient())
+            {
+
+                foreach (var id in listaId)
+                {
+                    if (check == true)
+                    {
+
+                        var response = client.DeleteAsync("http://gestaoreceitaapi.somee.com/api/Receita/" + id);
+
+                        response.Wait();
+
+                        if (response.Result.IsSuccessStatusCode)
+                        {
+                            check = true;
+
+                        }
+                        else
+                        {
+
+                            var content = response.Result.Content.ReadAsStringAsync();
+
+                            var ret = JsonConvert.DeserializeObject<List<ValidationResult>>(content.Result);
+
+                            check = false;
+                        }
+                    }
+
+                }
+                return check;
+            }
+
+
+        }
+
+
         public string GenerateToken()
         {
             Session["token"] = new StringBuilder();

@@ -1,7 +1,7 @@
 ﻿window.onload = function () {
-    
 
-    var receitas = [];
+
+    var receitasTr = [];
     var randomString;
 
 
@@ -10,25 +10,25 @@
         console.log(data)
     });
 
-/*    var inputElement = document.getElementById("verificacao");
-    inputElement.addEventListener("paste", function (event) {
-        event.preventDefault();
-        alerte("Ação de colagem foi bloqueada.", "warning");
-    });*/
+     var inputElement = document.getElementById("verificacao");
+        inputElement.addEventListener("paste", function (event) {
+            event.preventDefault();
+            alerte("Ação de colagem foi bloqueada.", "warning");
+        });
 
     $(".test").on("click", function (e) {
         $(this).toggleClass('bottomhover');
         const divPai = this.parentElement;
         const divPai1 = divPai.parentElement;
         if ($(this).hasClass('bottomhover')) {
-            receitas.push(divPai1);
-        } else { 
-            const indexToRemove = receitas.indexOf(divPai1);
+            receitasTr.push(divPai1);
+        } else {
+            const indexToRemove = receitasTr.indexOf(divPai1);
             if (indexToRemove !== -1) {
-                receitas.splice(indexToRemove, 1);
+                receitasTr.splice(indexToRemove, 1);
             }
         }
-        console.log(receitas);
+        console.log(receitasTr);
         toggleMenuContagemDelete();
     });
 
@@ -38,30 +38,80 @@
         divsComClasse.forEach(function (div) {
             console.log(div);
         });
-        sla = receitas.length;
+        sla = receitasTr.length;
+
+        var resultado = obterPrimeirasTds(receitasTr);
+        var trs = receitasTr
+
+        console.log(resultado)
+        console.log(receitasTr)
         i = 0
-        while (i < sla) {
 
-            console.log(receitas[i])
-            receitas[i].remove();
-            $(".menu").removeClass("active");
-            i++;
+        var tbody = document.getElementById("conteudoTbody");
+        var numeroDeLinhas = tbody.rows.length;
 
-        }
-        if (sla > 1) {
-            alerte(sla + " receitas foram excluidas")
-        } else {
-            alerte("Uma receita foi excluida")
-        }
+        var url = "/Receita/Excluir";
+        $.post(url, { listaId: resultado }, function (data) {
+            if (data == "False") {
+                alerte("Não foi possivel excluir as receitas", "warning")
+            } else {
+                alerte("Receitas foram excluidas")
+                while (i <= sla) {
+
+                    if (numeroDeLinhas > 0) {
+                        console.log(trs[i])
+                        trs[i].remove();
+                        $(".menu").removeClass("active");
+                        i++;
+                        numeroDeLinhas--;
+                    } else {
+                        document.getElementById("tables").remove();
+
+                        const elemento = document.getElementById('vazio');
 
 
-        receitas = [];
+                        var container = document.querySelector('#vazio');
+
+
+                        var novoHTML = `
+                            <div class="sla12">
+                                <img src="../Imagens/OIG-removebg-preview.png"/>
+                            </div>
+                            `;
+
+                        container.innerHTML = novoHTML;
+
+                        var myButton = document.getElementById("excluirReceita");
+                        myButton.disabled = true;
+
+
+                        myButton.style.backgroundColor = "#ccc";
+                        myButton.style.color = "#666";
+                        myButton.style.cursor = "not-allowed";
+                        myButton.style.border = "none";
+
+                        elemento.style.removeProperty('overflow');
+                        elemento.style.removeProperty('height');
+                    }
+
+                }
+                if (sla > 1) {
+                    alerte(sla + " receitas foram excluidas")
+                } else {
+                    alerte("Uma receita foi excluida")
+                }
+            }
+        })
+        
+
+
+        receitasTr = [];
 
 
     });
 
     $("#FecharAlert").on("click", function (e) {
-       
+
         $(this).toggleClass("aaaa");
 
     });
@@ -77,10 +127,13 @@
             $(a).css('font-size', '30px')
             $(a).css('user-select', 'none')
         });
-        
+
     });
 
     $("#EXCLUIRTUDO").on("click", function (e) {
+        var botão = this
+        botão.disabled = true;
+
         var url = "/Receita/submeterCodigo";
         var digitado = $("#verificacao").val();
 
@@ -101,10 +154,16 @@
                             alerte("Erro ao limpar a lista", "warning");
                             console.log("Lista vazia");
 
+                            
+                            botão.disabled = false;
+
                         }
                         else {
+                            botão.style.backgroundColor = "#ccc";
+                            botão.style.color = "#666";
+                            botão.style.cursor = "not-allowed";
+                            botão.style.border = "none";
 
-      
 
                             alerte("Receitas apagadas", "sucess");
                             closeModal();
@@ -120,7 +179,6 @@
                             <div class="sla12">
                                 <img src="../Imagens/OIG-removebg-preview.png"/>
                             </div>
-                            <p style="text-align: center; margin-left: 20px;">Não há receitas para exibir.</p>
                             `;
 
                             container.innerHTML = novoHTML;
@@ -138,14 +196,17 @@
                             elemento.style.removeProperty('height');
                         }
                     });
-                break;
+                    break;
                 case "Codigo não bate":
                     alerte("Erro no codigo", "warning");
                     console.log("Erro no codigo");
+                    
+                    botão.disabled = false;
                     break;
                 case "Codigo vazio":
                     alerte("Insira o codigo", "warning");
                     console.log("Insira o codigo");
+                    botão.disabled = false;
                     break;
             }
         });
@@ -153,10 +214,10 @@
         /**/
 
     });
- };
+};
 
-    
-  
+
+
 
 function toggleMenuContagemDelete() {
     var isOpen = $(".test").hasClass('bottomhover');
@@ -183,13 +244,13 @@ function alerte(mensagem, tipo) {
 
     alertElement.classList.add("aaaa");
 
-    var audioWarning = new Audio('../Audio/notification-sound-7062.mp3'); 
+    var audioWarning = new Audio('../Audio/notification-sound-7062.mp3');
     var audioSucess = new Audio("../Audio/short-success-sound-glockenspiel-treasure-video-game-6346.mp3")
 
-    
+
     alertElement.classList.remove("alert-success", "alert-danger", "alert-warning", "alert-info");
 
-    
+
     switch (tipo) {
         case "success":
             alertElement.classList.add("alert", "alert-success");
@@ -248,6 +309,7 @@ function iniciarContador() {
 /*function pararContador() {
     clearInterval(intervalId);
 }*/
+
 function pegarValoresDaColuna(numeroColuna) {
     var tabela = document.getElementById("tables");
     var valoresColuna = [];
@@ -259,3 +321,20 @@ function pegarValoresDaColuna(numeroColuna) {
 
     return valoresColuna;
 }
+
+function obterPrimeirasTds(receitasTr) {
+    var receitasId = []; 
+
+    receitasTr.forEach(tr => {
+        const primeiraTd = tr.querySelector('td'); 
+        if (primeiraTd) {
+            receitasId.push(primeiraTd.textContent); 
+        }
+    });
+
+    return receitasId; 
+}
+
+
+
+
