@@ -335,6 +335,103 @@ function obterPrimeirasTds(receitasTr) {
     return receitasId; 
 }
 
+check = true
+
+function procurarValor() {
+    const chaveProcurada = document.getElementById("chaveInput").value.toLowerCase();
+    const tbody = document.getElementById("conteudoTbody");
+
+    console.log(chaveProcurada)
+
+    for (let i = 0; i < tbody.rows.length; i++) {
+        const Nomereceita = tbody.rows[i].cells[1].textContent.toLowerCase(); 
+        console.log(Nomereceita.includes(chaveProcurada))
+
+        const Idreceita = tbody.rows[i].cells[0].textContent.toLowerCase(); 
+        console.log(Idreceita.includes(chaveProcurada))
+
+        const PreçoReceita = tbody.rows[i].cells[2].textContent.toLowerCase(); 
+        console.log(Idreceita.includes(chaveProcurada))
 
 
+
+        if (Nomereceita.includes(chaveProcurada) || PreçoReceita.includes(chaveProcurada) || Idreceita.includes(chaveProcurada)) {
+            tbody.rows[i].style.display = "table-row";
+            console.log("Opa")
+            var container = document.querySelector('#vazio');
+
+            container.style.display = "flex";
+
+            check = true;
+
+            var myButton = document.getElementById("excluirReceita");
+            myButton.disabled = false;
+
+            var container = document.querySelector('#defaut');
+            container.innerHTML = "";
+
+        } else {
+            tbody.rows[i].style.display = "none";
+            console.log("Oi")
+
+
+            
+        }
+
+        
+    }
+
+    var tabela = document.getElementById("conteudoTbody");
+    var linhas = tabela.getElementsByTagName("tr");
+
+    var estiloDesejado = "display: none;";
+
+    var todasLinhasTemEstilo = true;
+
+
+    for (i = 0; i < linhas.length; i++) {
+        var estiloLinha = linhas[i].getAttribute("style");
+
+        if (estiloLinha !== estiloDesejado) {
+            todasLinhasTemEstilo = false;
+            break;
+        }
+    }
+
+    if (todasLinhasTemEstilo) {
+        var container = document.querySelector('#vazio');
+
+        container.style.display = "none";
+
+        var novoHTML = `
+                            <div class="sla12">
+                                <img src="../Imagens/OIG-removebg-preview.png"/>
+                                <p style="text-align: center;">Não foi possivel achar a receita</p>
+                            </div>
+                            `;
+
+
+
+        var novaDiv = document.createElement('div');
+        novaDiv.innerHTML = novoHTML;
+
+        var container = document.querySelector('#defaut');
+
+
+        if (check == true) {
+            container.appendChild(novaDiv);
+        }
+
+
+        var myButton = document.getElementById("excluirReceita");
+        myButton.disabled = true;
+
+
+
+
+        check = false;
+    } else {
+        console.log("Algumas linhas não têm o estilo desejado.");
+    }
+}
 
